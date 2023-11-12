@@ -111,12 +111,12 @@ export default function Home() {
           <p className='text-md'>Import it into your file:</p>
           <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
             wrapLines={true} className='p-4' language="javascript" style={atomOneDark} >
-            {"import ScrollAnimate from 'scroll-animate';"}
+            {"import ScrollAnimate from 'react-animation-scroll';"}
           </SyntaxHighlighter>
           <p className='text-md'>Add CSS into your file:</p>
           <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
             wrapLines={true} className='p-4' language="javascript" style={atomOneDark} >
-            {"import 'scroll-animate/dist/index.css';"}
+            {"import 'react-animation-scroll/dist/index.css';"}
           </SyntaxHighlighter>
 
 
