@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+````markdown
+# Documentation
 
-## Getting Started
+## Installation
 
-First, run the development server:
+Install with npm:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install React-animate-scroll
+```
+````
+
+Import it into your file:
+
+```javascript
+import ScrollAnimate from "scroll-animate";
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Add CSS into your file:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```javascript
+import "scroll-animate/dist/index.css";
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Basic Usage
 
-## Learn More
+Add the `<ScrollAnimate>` component to the element that will be animated and include the `animation` prop specifying the type of animation to be used. Remember, the `animation` prop is required.
 
-To learn more about Next.js, take a look at the following resources:
+```html
+<ScrollAnimate animation={'fade-in'}>Fade In</ScrollAnimate>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Properties
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### `infinite`
 
-## Deploy on Vercel
+Add the `infinite` prop to determine whether the animation will continue to run each time the element enters the viewpoint - default is false.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```html
+<ScrollAnimate animation={'fade-in'} infinite={true}>Fade In</ScrollAnimate>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### `delay`
+
+Add the `delay` prop to determine the delay time of the animation before it starts running, in milliseconds (ms).
+
+```html
+<ScrollAnimate animation={'fade-in'} delay={400}>Fade In</ScrollAnimate>
+```
+
+The animation will be executed after a delay of 400 milliseconds.
+
+### `duration`
+
+Add the `duration` prop to determine the duration of the animation, in seconds (s).
+
+```html
+<ScrollAnimate animation={'fade-in'} duration={2}>Fade In</ScrollAnimate>
+```
+
+This animation will run for 2 seconds.
+
+```
+
+Anda dapat menyalin dan menempelkan kode ini ke dalam file README.md pada repositori GitHub Anda.
+```
