@@ -1,113 +1,173 @@
-import Image from 'next/image'
-
+"use client";
+import { useState } from 'react';
+import ScrollAnimate from 'react-animation-scroll';
+import { FaChevronDown, FaGithub } from 'react-icons/fa';
+import 'react-animation-scroll/dist/index.css'
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import animationList from './component/animationList';
+import Coppied from './component/coppied';
 export default function Home() {
+
+  const [copy, setCopy] = useState(false);
+
+  const goToHandler = (dest) => {
+
+    const element = document.getElementById(dest);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+  const codeHiglight = (animationTitle, index) => {
+
+    const animation = animationTitle.toLowerCase().replace(/\s/g, '-');
+    const codeString = `<ScrollAnimate animation={'${animation}'}>${animationTitle}</ScrollAnimate>`
+
+    return <div key={index}>
+      <ScrollAnimate infinite={true} animation={`${animation}`}>
+        <div className='font-bold text-4xl p-2 ' >
+          {
+            animationTitle
+          }
+        </div>
+        <div className='h-8 bg-slate-800 text-white font-semibold text-sm p-2 rounded-t-lg flex justify-between'>
+          <span> html</span>
+          <Coppied _copy={codeString} />
+
+        </div>
+        <SyntaxHighlighter language="html" style={atomOneDark} lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+          wrapLines={true}  >
+          {codeString}
+        </SyntaxHighlighter>
+      </ScrollAnimate>
+
+    </div>
+
+
+
+  }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className='container mx-auto py-12'>
+
+
+      <div className='min-h-screen flex justify-center items-center text-center '>
+        <div className='p-4 space-y-24'>
+          <div className='text-4xl text-[#f7f5f5] font-bold'>React Animation Scroll</div>
+
+          <div onClick={() => goToHandler('documentation')} className='text-xl text-[#f7f5f5] border-2 border-red-400 rounded-lg p-4
+           hover:shadow-xl cursor-lg transform ease-in-out delay-100 cursor-pointer'>Documentation</div>
+          <div onClick={() => goToHandler('demo')} className='text-xl text-[#f7f5f5] space-y-8 cursor-pointer'> <span>Demo</span>
+            <div className='flex justify-center '>
+              <FaChevronDown className='text-red-400 bounce' size={44} />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id='demo' className='h-full'>
+        {
+          animationList.map((animation, index) =>
+            <div key={index} className='flex justify-center border-2 border-red-400 p-12 m-8 lg:m-32 bg-[#f7f5f5] rounded-lg' >
+
+              <div className='  py-32 space-y-24'>
+                <div className='text-3xl font-bold flex justify-center border-y-2 border-red-400 py-2'>
+                  {
+                    animation.title
+                  }
+                </div>
+                <div className='space-y-44'>
+                  {
+                    animation.list.map((a, index) => codeHiglight(a, index))
+                  }
+                </div>
+              </div>
+            </div>
+
+
+          )
+        }
+
+
+
+      </div>
+
+      <div id='documentation' className='lg:mx-24 mx-6 p-8 space-y-12 bg-[#233254] rounded-lg'>
+        <span className='text-[#f7f5f5] font-bold text-xl'>Documentation</span>
+        <div>
+          <a href='https://github.com/teguh161402025/react-animation-scroll' title='github' target='_blank' rel='noopener noreferrer' > <div className='w-44 space-x-2 flex justify-center p-2 hover:bg-red-400 transition-colors ease-in-out delay-100 border-2 border-red-400 rounded-md text-[#f7f5f5] font-semibold cursor-pointer'>
+            <span>View On Github</span>
+            <FaGithub size={24} />
+          </div></a>
+        </div>
+
+        <div className='space-y-6 text-[#f7f5f5] '>
+          <span className='text-[#f7f5f5] font-bold text-xl'>Installation</span>
+          <p className='text-md'>Install with npm:</p>
+          <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+            wrapLines={true} className='p-4' language="bash" style={atomOneDark} >
+            {'npm install React-animation-scroll'}
+          </SyntaxHighlighter>
+          <p className='text-md'>Import it into your file:</p>
+          <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+            wrapLines={true} className='p-4' language="javascript" style={atomOneDark} >
+            {"import ScrollAnimate from 'scroll-animate';"}
+          </SyntaxHighlighter>
+          <p className='text-md'>Add CSS into your file:</p>
+          <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+            wrapLines={true} className='p-4' language="javascript" style={atomOneDark} >
+            {"import 'scroll-animate/dist/index.css';"}
+          </SyntaxHighlighter>
+
+
+        </div>
+
+
+        <div className='space-y-6 text-[#f7f5f5] '>
+          <span className='text-[#f7f5f5] font-bold text-xl'>Basic Usage</span>
+
+          <p className='text-md'>Add the <span className='text-orange-500'>{'<ScrollAnimate> '}</span>Component to the element that will be animated and include the <span className='text-orange-300'>animation </span>prop specifying the type of animation to be used.<br /> <span className='text-red-600'>Remember animation properties is required</span></p>
+          <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+            wrapLines={true} className='p-4' language="html" style={atomOneDark} >
+            {"<ScrollAnimate animation={'fade-in'}>Fade In</ScrollAnimate>"}
+          </SyntaxHighlighter>
+
+
+        </div>
+
+        <div className='space-y-6 text-[#f7f5f5] '>
+          <span className='text-[#f7f5f5] font-bold text-xl'>Properties</span>
+          <div className='space-y-4'>
+            <p className='text-md font-semibold'>infinite</p>
+            <p className='text-md'>Add the <span className='text-orange-500'>{'infinite'}</span> To determine whether the animation will continue to run each time the element enters the viewpoint - default is false.</p>
+            <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+              wrapLines={true} className='p-4' language="html" style={atomOneDark} >
+              {"<ScrollAnimate  animation={'fade-in'} infinite={true}>Fade In</ScrollAnimate> "}
+            </SyntaxHighlighter>
+          </div>
+
+          <div className='space-y-4'>
+            <p className='text-md font-semibold'>delay</p>
+            <p className='text-md'>Add the <span className='text-orange-500'>{'delay'}</span> to Determine the delay time of the animation before it starts running, in milliseconds (ms)</p>
+            <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+              wrapLines={true} className='p-4' language="html" style={atomOneDark} >
+              {"<ScrollAnimate  animation={'fade-in'} delay={400}>Fade In</ScrollAnimate> The animation will be executed after a delay of 400 milliseconds."}
+            </SyntaxHighlighter>
+          </div>
+          <div className='space-y-4'>
+            <p className='text-md font-semibold'>duration</p>
+            <p className='text-md'>Add the <span className='text-orange-500'>{'duration'}</span>,to  determine the duration of the animation, in seconds. (s)</p>
+            <SyntaxHighlighter lineProps={{ style: { wordBreak: 'break-all', whiteSpace: 'pre-wrap' } }}
+              wrapLines={true} className='p-4' language="html" style={atomOneDark} >
+              {"<ScrollAnimate  animation={'fade-in'} duration={2}>Fade In</ScrollAnimate> This animation will run for 2 seconds."}
+            </SyntaxHighlighter>
+          </div>
+
+
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </main >
   )
 }
