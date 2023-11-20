@@ -1,3 +1,5 @@
+Demo:
+https://react-animation-scroll.vercel.app/
 ````markdown
 # Documentation
 
@@ -13,13 +15,13 @@ npm install React-animate-scroll
 Import it into your file:
 
 ```javascript
-import ScrollAnimate from "scroll-animate";
+import ScrollAnimate from "react-animation-scroll";
 ```
 
 Add CSS into your file:
 
 ```javascript
-import "scroll-animate/dist/index.css";
+import "react-animation-scroll/dist/index.css";
 ```
 
 ## Basic Usage
